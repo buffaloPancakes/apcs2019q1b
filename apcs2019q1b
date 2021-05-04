@@ -1,0 +1,71 @@
+package javaapplication17;
+
+public class JavaApplication17 {
+
+    public static void main(String[] args) {
+        // TODO code application logic here
+        int whatDayOfTheWeek = dayOfWeek(1, 18, 2019);
+    }
+    
+    public static int dayOfWeek(int month, int day, int year) {
+        
+        int result = 0;
+        
+        // Required to call this method.  Returns the 0-6 day of the week.
+        int firstDay = firstDayOfYear(year);
+                
+        /* Required to call this method.  Returns which day of the year from
+        1 - 366 the combined date is.  */
+        int date = dayOfYear(month, day, year);
+        
+        // Method 1: The math way.
+        
+        /* 
+        If we take the first day of the year which we are calling firstDay and
+        get the remainder when divided by 7, we get the same number as firstDay.
+
+        This seems very obvious but it helps us move towards a result.  The only 
+        other information we have to play with is the date itself that extends 
+        beyodn our firstDay.  Going off of yesterday's example, January 18 is 17 
+        days after the first day of the year.
+
+        By that logic, if we take the original day of the week and add 17 days 
+        of the week to it, we can take that number and get the day of the week
+        by dividing that by 7 and using the remainder.
+        */
+        
+        int sum = firstDay + date - 1; 
+        int remainder = sum % 7;
+        System.out.println(month + "\\" + day + "\\" + year + " is on the " + 
+                remainder + " day of the week.");        
+        
+        // Method 2: Loops for dummies
+        int dayOfTheWeek = firstDay;
+        
+        /* 
+        Starting at the day of the week of the year's first day, we'll use a 
+        variable called dayOfTheWeek that goes from 0-6 and resets itself every 7
+        numbers while i keeps going up to the goal day of the year.
+        */
+        
+        for (int i = dayOfTheWeek; i <= date; i++) {
+            dayOfTheWeek++;
+            if ( dayOfTheWeek ==  7 ) {
+                dayOfTheWeek = 0;
+            }
+        }
+        System.out.println(month + "\\" + day + "\\" + year + " is on the " + 
+                dayOfTheWeek + " day of the week.");        
+        
+        
+        return result;
+    }
+
+    private static int firstDayOfYear(int year) {
+        return 2;
+    }
+
+    private static int dayOfYear(int month, int day, int year) {
+        return 18;
+    }
+}
